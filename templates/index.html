@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Klassenchat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="chat-shell">
+    <header class="chat-header">
+      <div>
+        <p class="eyebrow">CAS BRE</p>
+        <h1>Klassenchat</h1>
+      </div>
+      <span class="badge">MVP</span>
+    </header>
+
+    <section class="message-list" aria-label="Nachrichten">
+      {% if messages %}
+        {% for message in messages %}
+          <article class="message-card">
+            <div class="message-meta">
+              <strong>{{ message.username }}</strong>
+              <time>{{ message.timestamp }}</time>
+            </div>
+            <p>{{ message.text }}</p>
+          </article>
+        {% endfor %}
+      {% else %}
+        <p class="empty-state">Noch keine Nachrichten. Schreibe die erste Nachricht.</p>
+      {% endif %}
+    </section>
+
+    <form class="composer" method="post" action="/">
+      <label>
+        Name
+        <input name="username" maxlength="40" required placeholder="z. B. Sara">
+      </label>
+      <label>
+        Nachricht
+        <textarea name="text" maxlength="500" required placeholder="Nachricht schreiben..."></textarea>
+      </label>
+      <button type="submit">Senden</button>
+    </form>
+  </main>
+</body>
+</html>
