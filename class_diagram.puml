@@ -1,0 +1,23 @@
+@startuml
+title Klassenchat - DDD Klassendiagramm
+
+class User {
+  +user_id: int
+  +username: string
+}
+
+class Message {
+  +message_id: int
+  +text: string
+  +timestamp: datetime
+}
+
+class ChatRoom {
+  +room_name: string
+}
+
+User "1" --> "*" Message : sends
+ChatRoom "1" --> "*" Message : contains
+ChatRoom "1" --> "*" User : participants
+
+@enduml
