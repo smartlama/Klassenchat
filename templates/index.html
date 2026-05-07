@@ -1,48 +1,48 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Klassenchat</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <title>Klassenchat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <main class="chat-shell">
-    <header class="chat-header">
-      <div>
-        <p class="eyebrow">CAS BRE</p>
+
+    <main>
         <h1>Klassenchat</h1>
-      </div>
-      <span class="badge">MVP</span>
-    </header>
 
-    <section class="message-list" aria-label="Nachrichten">
-      {% if messages %}
-        {% for message in messages %}
-          <article class="message-card">
-            <div class="message-meta">
-              <strong>{{ message.username }}</strong>
-              <time>{{ message.timestamp }}</time>
-            </div>
-            <p>{{ message.text }}</p>
-          </article>
-        {% endfor %}
-      {% else %}
-        <p class="empty-state">Noch keine Nachrichten. Schreibe die erste Nachricht.</p>
-      {% endif %}
-    </section>
+        <form method="POST">
+            <input
+                type="text"
+                name="username"
+                placeholder="Name"
+                value="{{ saved_username }}"
+                required
+            >
 
-    <form class="composer" method="post" action="/">
-      <label>
-        Name
-        <input name="username" maxlength="40" required placeholder="z. B. Sara">
-      </label>
-      <label>
-        Nachricht
-        <textarea name="text" maxlength="500" required placeholder="Nachricht schreiben..."></textarea>
-      </label>
-      <button type="submit">Senden</button>
-    </form>
-  </main>
+            <input
+                type="text"
+                name="text"
+                placeholder="Nachricht"
+                required
+            >
+
+            <button type="submit">Senden</button>
+        </form>
+
+        <section>
+            {% if messages %}
+                {% for msg in messages %}
+                    <article>
+                        <strong>{{ msg.username }}</strong>
+                        <small>{{ msg.timestamp }}</small>
+                        <p>{{ msg.text }}</p>
+                    </article>
+                {% endfor %}
+            {% else %}
+                <p>Noch keine Nachrichten vorhanden.</p>
+            {% endif %}
+        </section>
+    </main>
+
 </body>
 </html>
